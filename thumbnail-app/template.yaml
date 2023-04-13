@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  thumbnail-app
+  Lambda function to create thumbnail from a file added to s3
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+Resources:
+  VideoBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: "maginepro-video-2"
+
+  ThumbnailCreatorFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      Timeout: 30
+      Policies:
+        - S3ReadPolicy:
+            BucketName: "maginepro-video-2" # can not use !Ref (https://github.com/aws/serverless-application-model/issues/1109)
+        - S3WritePolicy:
+            BucketName: "maginepro-thumbnail"
+      Environment:
+        Variables:
+          THUMBNAIL_S3: "maginepro-thumbnail"
+          FFMPEG_BIN: "/var/task/ffmpeg"
+      CodeUri: thumbnail/
+      Handler: app.thumbnail_creator
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        Thumbnail:
+          Type: S3 # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Bucket: !Ref VideoBucket
+            Events: s3:ObjectCreated:*

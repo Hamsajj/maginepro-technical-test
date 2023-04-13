@@ -1,8 +1,8 @@
+import io
 import logging
 import os
 
 import boto3
-from botocore import exceptions
 import moviepy.editor as mp
 
 

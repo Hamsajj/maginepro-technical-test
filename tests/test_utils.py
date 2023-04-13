@@ -17,3 +17,9 @@ def test_resize_video():
     resized_clip = mp.VideoFileClip(output_path)
     assert resized_clip.h == resized_height, "output should be resized"
     os.remove(output_path)
+
+
+def test_extract_thumbnail():
+    """tests success path of extract_thumbnail"""
+    assert os.path.isfile(SAMPLE_VIDEO), f"assert {SAMPLE_VIDEO} exists"
+    extract_thumbnail(SAMPLE_VIDEO, from_second=5)
