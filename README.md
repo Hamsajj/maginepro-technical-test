@@ -87,3 +87,4 @@ If I had more time I would have focused on the following in the lambda app:
 
 - [v1.0](https://github.com/Hamsajj/maginepro-technical-test/tree/v1.0): includes only main part of challenge
 - [v1.1](https://github.com/Hamsajj/maginepro-technical-test/tree/v1.1): includes multi-thread support of processing all video files in a directory
+- [v1.2](https://github.com/Hamsajj/maginepro-technical-test/tree/v1.2): includes serverless function to create thumbnail from images
