@@ -55,3 +55,7 @@ A pool of threads work on files that need to be processed and another thread wor
 by default 2 threads is created for processing and 2 others for uploading. You can change this by `--threads`
 
 
+### Version
+
+- [v1.0](https://github.com/Hamsajj/maginepro-technical-test/tree/v1.0): includes only main part of challenge
+- [v1.1](https://github.com/Hamsajj/maginepro-technical-test/tree/v1.1): includes multi-thread support of processing all video files in a directory
