@@ -21,7 +21,6 @@ def upload_to_s3(file_to_upload: str, bucket_name: str, object_key: str):
     s3_client.upload_file(file_to_upload, bucket_name, object_key)
     logging.info(f"upload completed - 's3://{bucket_name}/{object_key}'")
 
-
 def create_file_dir(file_path: str):
     dirname = os.path.dirname(os.path.abspath(file_path))
     if not os.path.exists(dirname):

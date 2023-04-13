@@ -23,26 +23,35 @@ pip install -r requirements.txt
 ### Run
 If you want to resize video 'sample.mp4' and write the output to local file 'out.mp4' and upload to it to bucket `bucketname` with key `resized_sample.mp4` run the following command:
 ```sh
-$python main.py sample.mp4 out.mp4 bucketname resized_sample.mp4
+$python main.py -I ./tests/files/ -o out -b bucketname
 ```
 To read more, run `main.py` with `--help`:
 ```sh
 $python main.py --help
-usage: main.py [-h] [--height HEIGHT] [-v] [-r] input_file output_file bucket_name bucket_key
+usage: main.py [-h] (-i INPUT_FILE | -I INPUT_DIRECTORY) -o OUTPUT_DIRECTORY -b BUCKET_NAME [--height HEIGHT] [-v] [-r] [-t THREADS]
 
 This simple CLI, resizes a video and upload the output to a S3 bucket
 
-positional arguments:
-  input_file       input video file path
-  output_file      desired output path for the resized video, will create directory if does not exist
-  bucket_name      s3 bucket name you want to upload to
-  bucket_key       s3 bucket key
-
 options:
-  -h, --help       show this help message and exit
-  --height HEIGHT  resize videos to match this height
-  -v, --verbose    logs debug information
-  -r, --replace    replace local file if already exists (NOTE: will replace object in s3 bucket regardless of this flag)
+  -h, --help            show this help message and exit
+  -i INPUT_FILE, --input-file INPUT_FILE
+                        input video file path
+  -I INPUT_DIRECTORY, --input-directory INPUT_DIRECTORY
+                        input directory including only video files
+  -o OUTPUT_DIRECTORY, --output-directory OUTPUT_DIRECTORY
+                        output directory
+  -b BUCKET_NAME, --bucket-name BUCKET_NAME
+                        s3 bucket name you want to upload to
+  --height HEIGHT       resize videos to match this height
+  -v, --verbose         logs debug information
+  -r, --replace         replace local file if already exists (NOTE: will replace object in s3 bucket regardless of this flag)
+  -t THREADS, --threads THREADS
+                        number of threads working on processing and uploading video files, 2 means 2 thread will work on processing and 2 will work on uploading
+
 ```
+
+This script works parallely on processing and uploading videos. 
+A pool of threads work on files that need to be processed and another thread works on uploading processed videos.
+by default 2 threads is created for processing and 2 others for uploading. You can change this by `--threads`
 
 
