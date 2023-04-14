@@ -77,8 +77,11 @@ to extract a thumbnail and save it to the created s3 bucket. The reason that `mo
 it adds a lot of unused dependency, adding to the lambda function size. While we only need ffmpeg.
 
 ### Future roadmap
-If I had more time I would have focused on the following in the lambda app:
+The main task took about 2 hours to complete. The first bonus task took about 1-2 hour.
+The Lambda function took about 4 hours. So it was around 7-8 hours in total.
+If I had more time I would have focused on the following (especially in the lambda app):
 - better error handling
+- tests
 - better logging
 - handling all the needed resources in the `template.yaml` instead of using external S3 bucket
 

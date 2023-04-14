@@ -1,4 +1,5 @@
 import json
+import os
 
 import pytest
 
@@ -50,9 +51,9 @@ def apigw_event():
 
 
 def test_lambda_handler(apigw_event):
+    os.environ["FFMPEG_BIN"] = "ffmpeg"
     ret = app.thumbnail_creator(apigw_event, "")
     data = json.loads(ret["body"])
 
     assert ret["statusCode"] == 200
-    assert "message" in ret["body"]
-    assert data["message"] == "hello world"
+    assert "thumbnails" in ret["body"]
